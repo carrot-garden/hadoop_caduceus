@@ -46,7 +46,40 @@ public class MovingAverageJob extends Configured implements Tool {
 		conf.setOutputKeyComparatorClass(CompositeKeyComparator.class);
 		conf.setOutputValueGroupingComparator(NaturalKeyGroupingComparator.class);
 
-/*		
+		/*
+		 * List<String> other_args = new ArrayList<String>(); for (int i = 0; i
+		 * < args.length; ++i) { try { if ("-m".equals(args[i])) {
+		 * 
+		 * conf.setNumMapTasks(Integer.parseInt(args[++i]));
+		 * 
+		 * } else if ("-r".equals(args[i])) {
+		 * 
+		 * conf.setNumReduceTasks(Integer.parseInt(args[++i]));
+		 * 
+		 * } else if ("-windowSize".equals(args[i])) {
+		 * 
+		 * conf.set("tv.floe.caduceus.hadoop.movingaverage.windowSize",
+		 * args[++i]);
+		 * 
+		 * } else if ("-windowStepSize".equals(args[i])) {
+		 * 
+		 * conf.set("tv.floe.caduceus.hadoop.movingaverage.windowStepSize",
+		 * args[++i]);
+		 * 
+		 * } else {
+		 * 
+		 * other_args.add(args[i]);
+		 * 
+		 * } } catch (NumberFormatException except) {
+		 * System.out.println("ERROR: Integer expected instead of " + args[i]);
+		 * return printUsage(); } catch (ArrayIndexOutOfBoundsException except)
+		 * { System.out.println("ERROR: Required parameter missing from " +
+		 * args[i - 1]); return printUsage(); } } // Make sure there are exactly
+		 * 2 parameters left. if (other_args.size() != 2) {
+		 * System.out.println("ERROR: Wrong number of parameters: " +
+		 * other_args.size() + " instead of 2."); return printUsage(); }
+		 */
+
 		List<String> other_args = new ArrayList<String>();
 		for (int i = 0; i < args.length; ++i) {
 			try {
@@ -57,14 +90,6 @@ public class MovingAverageJob extends Configured implements Tool {
 				} else if ("-r".equals(args[i])) {
 
 					conf.setNumReduceTasks(Integer.parseInt(args[++i]));
-
-				} else if ("-windowSize".equals(args[i])) {
-
-					conf.set("tv.floe.caduceus.hadoop.movingaverage.windowSize", args[++i]);
-
-				} else if ("-windowStepSize".equals(args[i])) {
-
-					conf.set("tv.floe.caduceus.hadoop.movingaverage.windowStepSize", args[++i]);
 
 				} else {
 
@@ -87,43 +112,7 @@ public class MovingAverageJob extends Configured implements Tool {
 					+ other_args.size() + " instead of 2.");
 			return printUsage();
 		}
-*/
-		
-		   List<String> other_args = new ArrayList<String>();
-		   for(int i=0; i < args.length; ++i) {
-		     try {
-		       if ("-m".equals(args[i])) {
-		       	
-		         conf.setNumMapTasks(Integer.parseInt(args[++i]));
-		         
-		       } else if ("-r".equals(args[i])) {
-		       	
-		         conf.setNumReduceTasks(Integer.parseInt(args[++i]));
-		    	   
-		    	   
-		    	   		    	   
-		       } else {
-		       	
-		         other_args.add(args[i]);
-		         
-		       }
-		     } catch (NumberFormatException except) {
-		       System.out.println("ERROR: Integer expected instead of " + args[i]);
-		       return printUsage();
-		     } catch (ArrayIndexOutOfBoundsException except) {
-		       System.out.println("ERROR: Required parameter missing from " +
-		                          args[i-1]);
-		       return printUsage();
-		     }
-		   }
-		   // Make sure there are exactly 2 parameters left.
-		   if (other_args.size() != 2) {
-		     System.out.println("ERROR: Wrong number of parameters: " +
-		                        other_args.size() + " instead of 2.");
-		     return printUsage();
-		   }
-		   		
-		
+
 		conf.setInputFormat(TextInputFormat.class);
 
 		conf.setOutputFormat(TextOutputFormat.class);
